@@ -72,37 +72,40 @@
                     textFormt[index] = "ufat"
                     break;
             }
-
             textEncriptado += textFormt[index]
-
         }
-
         return textEncriptado;
     }
 
     function desencriptartexto(text) {
         let textFormt = text;
-
-
-
-
         textFormt = textFormt.toString().replace(/ai/g, "a");
         textFormt = textFormt.toString().replace(/enter/g, "e");
         textFormt = textFormt.toString().replace(/imes/g, "i");
         textFormt = textFormt.toString().replace(/ober/g, "o");
         textFormt = textFormt.toString().replace(/ufat/g, "u");
-
         return textFormt;
+    }
 
+    function validarTexto(params) {
+        let caracterValido = /[a-z\s\,\.\;\:\!\¿\?\"\$\#\%\&\(\)\<\>\*\¡\-\_]+/
+        for (let index = 0; index < params.length; index++) {
+            if (!params[index].match(caracterValido)) {
+                return true;
+            }
+        }
     }
 
     function encrioptar() {
 
         let text = textarea.value;
-        if(text == 0) {
+        if (text == 0) {
             alert("Por favor, ingrese el texto que desea encriptar")
         } else {
-                validarMayusculas(text);
+            if (validarTexto(text)) {
+                alert("el texto no puede caracteres en mayuscula, ni llevar acentos")
+            }
+            else {
                 let p = document.querySelector(".p-text-encriptado");
                 p.innerText = encriptartexto(textarea.value);
                 textarea.value = "";
@@ -110,11 +113,15 @@
                 document.querySelector(".panel-text-encriptado").style.display = "block";
             }
         }
-    
+    }
 
-        function desencriptar() {
-            if (textarea.value == 0) {
-                alert("Por favor, ingrese el texto que desea desencriptar")
+    function desencriptar() {
+        let text = textarea.value;
+        if (text == 0) {
+            alert("Por favor, ingrese el texto que desea desencriptar")
+        } else {
+            if (validarTexto(text)) {
+                alert("el texto no puede caracteres en mayuscula, ni llevar acentos")
             } else {
                 let p = document.querySelector(".p-text-encriptado");
                 p.innerText = desencriptartexto(textarea.value);
@@ -123,24 +130,16 @@
                 document.querySelector(".panel-text-encriptado").style.display = "block";
             }
         }
+    }
 
-        function esMayuscula(letra) {
-            return letra === letra.toUpperCase();
-        }
+    function copy() {
+        let copyText = document.querySelector(".p-text-encriptado").textContent;
+        navigator.clipboard.writeText(copyText);
+    }
 
-        function validarMayusculas(params) {
-            let miPalabra = params;
-            console.log("entro .........")
-    
-        }
-        function copy() {
-            let copyText = document.querySelector(".p-text-encriptado").textContent;
-            navigator.clipboard.writeText(copyText);
-        }
-
-        document.querySelector(".botonCopiar").onclick = copy;
-        botonEncriptar.onclick = encrioptar;
-        botonDesencriptar.onclick = desencriptar;
+    document.querySelector(".botonCopiar").onclick = copy;
+    botonEncriptar.onclick = encrioptar;
+    botonDesencriptar.onclick = desencriptar;
 
 </script>
 
