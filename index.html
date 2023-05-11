@@ -51,8 +51,8 @@
     let botonDesencriptar = document.querySelector(".boton-desencriptar")
 
     function encriptartexto(text) {
-       let textFormt = text.toString().split("");
-       let textEncriptado = "";
+        let textFormt = text.toString().split("");
+        let textEncriptado = "";
 
         for (let index = 0; index < textFormt.length; index++) {
             switch (textFormt[index]) {
@@ -76,7 +76,7 @@
             textEncriptado += textFormt[index]
 
         }
-        
+
         return textEncriptado;
     }
 
@@ -97,37 +97,50 @@
     }
 
     function encrioptar() {
-        if (textarea.value == 0) {
+
+        let text = textarea.value;
+        if(text == 0) {
             alert("Por favor, ingrese el texto que desea encriptar")
         } else {
-            let p = document.querySelector(".p-text-encriptado");
-            p.innerText = encriptartexto(textarea.value);
-            textarea.value = "";
-            document.querySelector(".rectangulo-contain").style.display = "none";
-            document.querySelector(".panel-text-encriptado").style.display = "block";
+                validarMayusculas(text);
+                let p = document.querySelector(".p-text-encriptado");
+                p.innerText = encriptartexto(textarea.value);
+                textarea.value = "";
+                document.querySelector(".rectangulo-contain").style.display = "none";
+                document.querySelector(".panel-text-encriptado").style.display = "block";
+            }
         }
-    }
+    
 
-    function desencriptar(){
-        if (textarea.value == 0) {
-            alert("Por favor, ingrese el texto que desea desencriptar")
-        } else {
-            let p = document.querySelector(".p-text-encriptado");
-            p.innerText = desencriptartexto(textarea.value);
-            textarea.value = "";
-            document.querySelector(".rectangulo-contain").style.display = "none";
-            document.querySelector(".panel-text-encriptado").style.display = "block";
+        function desencriptar() {
+            if (textarea.value == 0) {
+                alert("Por favor, ingrese el texto que desea desencriptar")
+            } else {
+                let p = document.querySelector(".p-text-encriptado");
+                p.innerText = desencriptartexto(textarea.value);
+                textarea.value = "";
+                document.querySelector(".rectangulo-contain").style.display = "none";
+                document.querySelector(".panel-text-encriptado").style.display = "block";
+            }
         }
-    }
 
-    function copy() {
-        let copyText = document.querySelector(".p-text-encriptado").textContent;
-        navigator.clipboard.writeText(copyText);
-    }
+        function esMayuscula(letra) {
+            return letra === letra.toUpperCase();
+        }
 
-    document.querySelector(".botonCopiar").onclick = copy;
-    botonEncriptar.onclick = encrioptar;
-    botonDesencriptar.onclick = desencriptar;
+        function validarMayusculas(params) {
+            let miPalabra = params;
+            console.log("entro .........")
+    
+        }
+        function copy() {
+            let copyText = document.querySelector(".p-text-encriptado").textContent;
+            navigator.clipboard.writeText(copyText);
+        }
+
+        document.querySelector(".botonCopiar").onclick = copy;
+        botonEncriptar.onclick = encrioptar;
+        botonDesencriptar.onclick = desencriptar;
 
 </script>
 
